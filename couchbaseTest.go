@@ -13,42 +13,38 @@ var doThisOnce = func() {
 	var database = db.ConnectDb()
 
 	// getting specific document from database
-	assetID := "test"
+	assetID := "21st_amendment_brewery_cafe-21a_ipa"
 	var res map[string]interface{}
 	_,docErr := database.Get(assetID, &res)
 	if docErr != nil {
 		fmt.Println("error occurred")
 		fmt.Println(docErr)
 	} else {
-		fmt.Println(" ")
 		fmt.Println("Single Document Retreived: ")
-		fmt.Println(res["name"])
-		fmt.Println(" ")
+		fmt.Println(fmt.Sprintf("Name: %s", res["name"]))
+		fmt.Println(fmt.Sprintf("TYPE: %s", res["type"]))
+		fmt.Println(fmt.Sprintf("ABV: %s", res["abv"]))
 	}
 
-	myViewQuery := gocb.NewViewQuery("listall", "listall")
+	myViewQuery := gocb.NewViewQuery("beer", "brewery_beers")
 	rows, errs := database.ExecuteViewQuery(myViewQuery)
 	if errs != nil {
-		fmt.Println("listall error")
+		fmt.Println("brewery_beers error")
 		fmt.Println(errs)
 	} else {
 		fmt.Println(" ")
 		fmt.Println("Design Doc Query Documents Retreived: ")
 		fmt.Println(rows)
-		fmt.Println(" ")
 	}
 
-	// n1ql query running select *
-	myN1qlQuery := gocb.NewN1qlQuery("SELECT * FROM kvincent")
+	myN1qlQuery := gocb.NewN1qlQuery("SELECT name FROM `beer-sample`;")
 	rows, err := database.ExecuteN1qlQuery(myN1qlQuery, nil)
 	if err != nil {
 		fmt.Println("n1ql error:")
 		fmt.Println(err)
 	} else {
-		fmt.Println(" ")
-		fmt.Println("N1Ql Query Documents Retreived: ")
+		fmt.Println("N1Ql Query Documents Successfully Retreived")
 		fmt.Println(rows)
-		fmt.Println(" ")
 	}
 }
 

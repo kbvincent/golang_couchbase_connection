@@ -24,8 +24,8 @@ func GetConfig() Config{
 	var c Config
 
 	c = Config{
-		DataStoreUrl:"couchbase://10.84.101.122/",
-		DataStoreBucket:"kvincent",
+		DataStoreUrl:"couchbase://10.84.107.186/",
+		DataStoreBucket:"beer-sample",
 		DataStoreBucketPW:"",
 	}
 
