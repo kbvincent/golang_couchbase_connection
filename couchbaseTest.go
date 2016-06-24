@@ -27,7 +27,7 @@ var doThisOnce = func() {
 	}
 
 	myViewQuery := gocb.NewViewQuery("beer", "brewery_beers")
-	rows, errs := database.ExecuteViewQuery(myViewQuery)
+	_, errs := database.ExecuteViewQuery(myViewQuery)
 	if errs != nil {
 		fmt.Println("brewery_beers error")
 		fmt.Println(errs)
@@ -37,7 +37,7 @@ var doThisOnce = func() {
 		fmt.Println(rows)
 	}
 
-	myN1qlQuery := gocb.NewN1qlQuery("SELECT name FROM `beer-sample`;")
+	myN1qlQuery := gocb.NewN1qlQuery("SELECT name FROM `beer-sample` where name = '21A IPA';")
 	rows, err := database.ExecuteN1qlQuery(myN1qlQuery, nil)
 	if err != nil {
 		fmt.Println("n1ql error:")
